@@ -1,0 +1,39 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.0'  // Existing Flutter classpath
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"  // Existing Kotlin classpath
+        // ▼ Add these two Firebase lines ▼
+        classpath 'com.google.gms:google-services:4.3.15'
+        classpath 'com.google.firebase:firebase-appdistribution-gradle:4.0.0'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+// ... rest of your existing file ...
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
